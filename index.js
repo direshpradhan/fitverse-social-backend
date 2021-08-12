@@ -24,6 +24,22 @@ app.use(authenticateToken);
 app.use("/user", userRouter);
 app.use("/post", postRouter);
 
+//404 Handler
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "The route you're looking for does not exist!!",
+  });
+});
+
+// Error Handler
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    succcess: false,
+    message: "Server is having some issues. Please try again after sometime.",
+  });
+});
+
 app.listen(3000, () => {
   console.log("server started");
 });
